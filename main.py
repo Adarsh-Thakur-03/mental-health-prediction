@@ -59,7 +59,7 @@ def predict(data:StudentData):
          'Age': data.age,
          'Gender': data.gender,
          'Country':data.country,
-         'Academic_level':data.academic_level,
+         'Academic_Level':data.academic_level,
          'Most_Used_Platform':data.most_used_platform,
          'Purpose_Of_Use':data.purpose_of_use,
          'Avg_Daily_Usage_Hours':data.avg_daily_usage_hours,
