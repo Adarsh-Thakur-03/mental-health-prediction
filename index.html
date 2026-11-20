@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MindMetrics · Student Mental Health Predictor</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="bg-blob blob-1"></div>
+  <div class="bg-blob blob-2"></div>
+
+  <main class="container">
+    <header class="hero">
+      <span class="badge">AI-powered insight</span>
+      <h1>Student Mental Health <span class="grad">Predictor</span></h1>
+      <p>Enter lifestyle and social-media habits to estimate a mental health score.</p>
+    </header>
+
+    <div class="layout">
+      <section class="card">
+        <form id="predictForm" novalidate>
+          <fieldset>
+            <legend>👤 Profile</legend>
+            <div class="grid">
+              <div class="field"><label for="age">Age</label>
+                <input type="number" id="age" name="age" min="10" max="100" step="1" placeholder="e.g. 20" required />
+                <small class="err" data-err="age"></small></div>
+              <div class="field"><label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                  <option value="" disabled selected>Select…</option>
+                  <option>Female</option><option>Male</option></select>
+                <small class="err" data-err="gender"></small></div>
+              <div class="field"><label for="academic_level">Academic level</label>
+                <select id="academic_level" name="academic_level" required>
+                  <option value="" disabled selected>Select…</option>
+                  <option>High School</option><option>Undergraduate</option><option>Graduate</option></select>
+                <small class="err" data-err="academic_level"></small></div>
+              <div class="field"><label for="country">Country</label>
+                <input type="text" id="country" name="country" list="countryList" placeholder="e.g. India" autocomplete="off" required />
+                <datalist id="countryList"><option>India</option><option>USA</option><option>UK</option><option>Canada</option><option>Australia</option><option>Germany</option><option>France</option><option>Mexico</option><option>Turkey</option></datalist>
+                <small class="err" data-err="country"></small></div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>📱 Social media habits</legend>
+            <div class="grid">
+              <div class="field"><label for="most_used_platform">Most used platform</label>
+                <select id="most_used_platform" name="most_used_platform" required>
+                  <option value="" disabled selected>Select…</option>
+                  <option>Facebook</option><option>Instagram</option><option>KakaoTalk</option><option>LINE</option>
+                  <option>LinkedIn</option><option>Snapchat</option><option>TikTok</option><option>Twitter</option>
+                  <option>VKontakte</option><option>WeChat</option><option>WhatsApp</option><option>YouTube</option></select>
+                <small class="err" data-err="most_used_platform"></small></div>
+              <div class="field"><label for="purpose_of_use">Purpose of use</label>
+                <select id="purpose_of_use" name="purpose_of_use" required>
+                  <option value="" disabled selected>Select…</option>
+                  <option>Education</option><option>Entertainment</option><option>Networking</option><option>News</option></select>
+                <small class="err" data-err="purpose_of_use"></small></div>
+              <div class="field"><label for="avg_daily_usage_hours">Daily usage (hrs)</label>
+                <input type="number" id="avg_daily_usage_hours" name="avg_daily_usage_hours" min="0" max="24" step="0.1" placeholder="e.g. 4.5" required />
+                <small class="err" data-err="avg_daily_usage_hours"></small></div>
+              <div class="field"><label for="Daily_Unlocks">Daily phone unlocks</label>
+                <input type="number" id="Daily_Unlocks" name="Daily_Unlocks" min="0" step="1" placeholder="e.g. 60" required />
+                <small class="err" data-err="Daily_Unlocks"></small></div>
+            </div>
+          </fieldset>
+
+          <fieldset>
+            <legend>🌿 Lifestyle</legend>
+            <div class="grid">
+              <div class="field"><label for="study_hours">Study hours / day</label>
+                <input type="number" id="study_hours" name="study_hours" min="0" max="24" step="0.1" placeholder="e.g. 3" required />
+                <small class="err" data-err="study_hours"></small></div>
+              <div class="field"><label for="sleep_hours_per_night">Sleep hours / night</label>
+                <input type="number" id="sleep_hours_per_night" name="sleep_hours_per_night" min="0" max="24" step="0.1" placeholder="e.g. 7" required />
+                <small class="err" data-err="sleep_hours_per_night"></small></div>
+              <div class="field"><label for="physical_activity_hours">Physical activity (hrs)</label>
+                <input type="number" id="physical_activity_hours" name="physical_activity_hours" min="0" max="24" step="0.1" placeholder="e.g. 1" required />
+                <small class="err" data-err="physical_activity_hours"></small></div>
+              <div class="field"><label for="stress_level">Stress level</label>
+                <select id="stress_level" name="stress_level" required>
+                  <option value="" disabled selected>Select…</option>
+                  <option>Low</option><option>Medium</option><option>High</option><option>Very High</option></select>
+                <small class="err" data-err="stress_level"></small></div>
+            </div>
+          </fieldset>
+
+          <div id="alert" class="alert" role="alert" hidden></div>
+
+          <div class="actions">
+            <button type="button" id="resetBtn" class="btn ghost">Reset</button>
+            <button type="submit" id="submitBtn" class="btn primary">
+              <span class="btn-label">Predict score</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <aside class="card result" id="resultPanel" aria-live="polite">
+        <div id="placeholder" class="state">
+          <div class="emoji">🧠</div>
+          <h3>Your result appears here</h3>
+          <p>Fill in the form and press <strong>Predict score</strong>.</p>
+        </div>
+
+        <div id="loading" class="state" hidden>
+          <div class="loader"><span></span><span></span><span></span></div>
+          <h3>Analyzing your data…</h3>
+          <p>The model is crunching the numbers.</p>
+        </div>
+
+        <div id="result" class="state" hidden>
+          <p class="eyebrow">Predicted mental health score</p>
+          <div class="gauge">
+            <svg viewBox="0 0 120 120">
+              <circle class="track" cx="60" cy="60" r="52" />
+              <circle class="bar" id="gaugeBar" cx="60" cy="60" r="52" />
+            </svg>
+            <div class="gauge-text"><span id="scoreValue">0</span><small>/ 10</small></div>
+          </div>
+          <div id="scoreLabel" class="pill"></div>
+          <p id="scoreMsg" class="msg"></p>
+          <p class="disclaimer">This is a statistical estimate, not a medical diagnosis. If you're struggling, please talk to a qualified professional.</p>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
