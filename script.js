@@ -1,7 +1,7 @@
 "use strict";
 
 /* ---------- Config ---------- */
-const API_URL = "http://127.0.0.1:8000/predict";
+const API_URL = "https://mental-health-prediction-9lsj.onrender.com";
 const NUMERIC_FIELDS = [
   "age", "avg_daily_usage_hours", "Daily_Unlocks",
   "physical_activity_hours", "sleep_hours_per_night", "study_hours",
