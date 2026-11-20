@@ -25,7 +25,7 @@ class StudentData(BaseModel):
     'TikTok','LINE', 'KakaoTalk', 'VKontakte',  'WhatsApp',    'WeChat']
      purpose_of_use   :Literal['Networking', 'Education', 'Entertainment', 'News']
      avg_daily_usage_hours : float = Field(...,ge=0,le=24)
-     Daily_Unlocks   : int = Field(...,ge=0)
+     daily_unlocks   : int = Field(...,ge=0)
      study_hours   : float = Field(...,ge=0,le=24)
      physical_activity_hours  : float = Field(...,ge=0,le=24)
      sleep_hours_per_night  : float = Field(...,ge=0,le=24)
@@ -62,7 +62,7 @@ def predict(data:StudentData):
          'Academic_level':data.academic_level,
          'Most_Used_Platform':data.most_used_platform,
          'Purpose_Of_Use':data.purpose_of_use,
-         'Avg_Daily_Usage_Hours':data.avg_daily_hours,
+         'Avg_Daily_Usage_Hours':data.avg_daily_usage_hours,
          'Daily_Unlocks':data.daily_unlocks,
          'Study_Hours':data.study_hours,
          'Physical_Activity_Hours':data.physical_activity_hours,
